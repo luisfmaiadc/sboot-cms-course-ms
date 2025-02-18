@@ -1,0 +1,10 @@
+CREATE TABLE curso (
+  id INT GENERATED ALWAYS AS IDENTITY,
+  titulo VARCHAR(75) NOT NULL,
+  id_instrutor INT,
+  categoria VARCHAR(45) NOT NULL,
+  nivel VARCHAR(45) NOT NULL,
+  data_criacao TIMESTAMP NOT NULL,
+  ativo BOOLEAN NOT NULL,
+  PRIMARY KEY (id)
+  );
