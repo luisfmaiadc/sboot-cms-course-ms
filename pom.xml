@@ -4,9 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.5</version>
+		<groupId>com.portfolio.luisfmdc</groupId>
+		<artifactId>pom-base-course-management-system</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
 		<relativePath/>
 	</parent>
 
@@ -14,6 +14,21 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>sboot-cms-course-ms</name>
 	<description>Responsável por gerenciar alunos e matrículas</description>
+
+	<licenses>
+		<license>
+			<name>The MIT License</name>
+			<url>https://opensource.org/licenses/MIT</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>luisfmaiadc</id>
+			<name>Luis Felipe Maia da Costa</name>
+			<email>lf.mcosta23@gmail.com</email>
+		</developer>
+	</developers>
 
 	<properties>
 		<java.version>21</java.version>
@@ -38,7 +53,11 @@
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
-			<version>9.22.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-database-postgresql</artifactId>
 		</dependency>
 
 		<dependency>
@@ -52,6 +71,12 @@
 			<artifactId>lombok</artifactId>
 			<version>1.18.36</version>
 			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+			<version>4.2.0</version>
 		</dependency>
 
 		<dependency>
@@ -71,7 +96,6 @@
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
-							<version>1.18.36</version>
 						</path>
 					</annotationProcessorPaths>
 				</configuration>
