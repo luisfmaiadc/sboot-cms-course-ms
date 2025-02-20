@@ -31,4 +31,9 @@ public class CursoController {
     public ResponseEntity inativarCurso(@PathVariable Integer idCurso) {
         return service.inativarCurso(idCurso);
     }
+
+    @GetMapping("/validar/{idCurso}")
+    public ResponseEntity validarCurso(@PathVariable Integer idCurso) {
+        return service.validarCurso(idCurso);
+    }
 }
