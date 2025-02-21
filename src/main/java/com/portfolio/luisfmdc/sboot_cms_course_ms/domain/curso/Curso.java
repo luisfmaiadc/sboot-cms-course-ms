@@ -1,5 +1,6 @@
 package com.portfolio.luisfmdc.sboot_cms_course_ms.domain.curso;
 
+import com.portfolio.luisfmdc.sboot_cms_course_ms.infra.exception.InvalidRequestArgumentException;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,6 +40,9 @@ public class Curso {
     public void atualizarCurso(UpdateCursoRequest request) {
 
         if (request.titulo() != null && !request.titulo().isEmpty()) {
+            if (request.titulo().length() < 3 || request.titulo().length() > 75) {
+                throw new InvalidRequestArgumentException("O nome do curso deve ter entre 3 e 75 caracteres");
+            }
             this.titulo = request.titulo();
         }
 

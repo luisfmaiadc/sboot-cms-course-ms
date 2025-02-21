@@ -5,7 +5,10 @@ import com.portfolio.luisfmdc.sboot_cms_course_ms.domain.curso.Curso;
 import com.portfolio.luisfmdc.sboot_cms_course_ms.domain.curso.CursoRequest;
 import com.portfolio.luisfmdc.sboot_cms_course_ms.domain.curso.CursoResponse;
 import com.portfolio.luisfmdc.sboot_cms_course_ms.domain.curso.UpdateCursoRequest;
+import com.portfolio.luisfmdc.sboot_cms_course_ms.infra.exception.ErrorClientException;
+import com.portfolio.luisfmdc.sboot_cms_course_ms.infra.exception.InvalidTeacherException;
 import com.portfolio.luisfmdc.sboot_cms_course_ms.repository.CursoRepository;
+import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -27,7 +30,7 @@ public class CursoService {
         boolean professorValido = request.idInstrutor() == null || validarProfessor(request.idInstrutor());
 
         if(!professorValido) {
-            throw new RuntimeException("Instrutor inválido!");
+            throw new InvalidTeacherException("Professor inválido.");
         }
 
         Curso curso = new Curso(request);
@@ -47,7 +50,7 @@ public class CursoService {
         boolean professorValido = request.idInstrutor() == null || validarProfessor(request.idInstrutor());
 
         if(!professorValido) {
-            throw new RuntimeException("Instrutor inválido!");
+            throw new InvalidTeacherException("Professor inválido.");
         }
 
         Curso curso = repository.getReferenceById(idCurso);
@@ -69,8 +72,14 @@ public class CursoService {
     }
 
     private boolean validarProfessor(Integer idProfessor) {
-        ResponseEntity<Void> response = instrutor.validarProfessor(idProfessor);
-        return response.getStatusCode().is2xxSuccessful();
+        try {
+            instrutor.validarProfessor(idProfessor);
+            return true;
+        } catch (FeignException.NotFound e) {
+            return false;
+        } catch (FeignException e) {
+            throw new ErrorClientException("Erro na tentativa de validar professor.");
+        }
     }
 
     public ResponseEntity validarCurso(Integer idCurso) {
